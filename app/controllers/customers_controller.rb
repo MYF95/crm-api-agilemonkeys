@@ -10,12 +10,14 @@ class CustomersController < ApplicationController
   # POST /customers
   def create
     @customer = Customer.create!(customer_params)
+    attach_avatar
     json_response(@customer, :created)
   end
 
   # GET /customers/:id
   def show
-    json_response(@customer)
+    customer = { profile_picture: url_for(@customer.avatar), record: @customer }
+    json_response(customer)
   end
 
   # PUT /customers/:id
@@ -33,10 +35,15 @@ class CustomersController < ApplicationController
   private
 
   def customer_params
-    params.permit(:name, :surname, :created_by, :updated_by)
+    params.permit(:name, :surname, :created_by, :updated_by, :avatar)
   end
 
   def set_customer
     @customer = Customer.find(params[:id])
+  end
+
+  def attach_avatar
+    avatar = params[:avatar].presence || {io: File.open("#{Rails.root}/public/images/default_avatar.png"), filename: 'default_avatar'}
+    @customer.avatar.attach(avatar)
   end
 end

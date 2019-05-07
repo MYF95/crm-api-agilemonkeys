@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Customers API', type: :request do
-  let!(:customers) { create_list(:customer, 10) }
+  let!(:customers) { create_list(:customer, 9) }
+  # Insert an individual customer with an avatar to avoid attaching an image to every record
+  before { customers.insert(0, create(:customer, :with_avatar)) }
   let(:customer_id) { customers.first.id }
 
   # Test suite for GET /customers
@@ -25,7 +27,7 @@ RSpec.describe 'Customers API', type: :request do
     context 'when the record exists' do
       it 'returns the customer' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(customer_id)
+        expect(json['record']['id']).to eq(customer_id)
       end
 
       it 'returns status code 200' do
