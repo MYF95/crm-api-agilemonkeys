@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
   # PUT /customers/:id
   def update
     @customer.update(customer_params)
+    attach_avatar if params[:avatar].present?
     head :no_content
   end
 
