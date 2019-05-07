@@ -16,7 +16,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/:id
   def show
-    customer = { profile_picture: url_for(@customer.avatar), record: @customer }
+    customer = { avatar: url_for(@customer.avatar), record: @customer }
     json_response(customer)
   end
 
