@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a synthetic API project done in Ruby on Rails. It is a REST API to manage customer data for a small shop as the backside end.
 
-Things you may want to cover:
+Ruby version: 2.6.3
 
-* Ruby version
+To install and run in local:
 
-* System dependencies
+1. Download or clone the repository
+2. Make sure you have the right ruby version
+3. Bundle install gems
+4. Migrate any pending migrations to the database with rails db:migrate
+4. Start the server and you're good to go!
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Resources in the API
+Customers with CRUD operations
