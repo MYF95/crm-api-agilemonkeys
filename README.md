@@ -12,5 +12,4 @@ To install and run in local:
 4. Migrate any pending migrations to the database with rails db:migrate
 4. Start the server and you're good to go!
 
-# Resources in the API
-Customers with CRUD operations
+All of the documentation regarding the resources available will be inside the [wiki](https://github.com/MYF95/crm-api-agilemonkeys/wiki) of the project.
