@@ -5,6 +5,10 @@ RSpec.describe 'Customers API', type: :request do
   # Insert an individual customer with an avatar to avoid attaching an image to every record
   before { customers.insert(0, create(:customer, :with_avatar)) }
   let(:customer_id) { customers.first.id }
+  before {
+    user = create(:user)
+    sign_in user
+  }
 
   # Test suite for GET /customers
   describe 'GET /customers' do
