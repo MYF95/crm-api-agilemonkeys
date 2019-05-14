@@ -5,6 +5,10 @@ RSpec.describe 'Customers API', type: :request do
   # Insert an individual customer with an avatar to avoid attaching an image to every record
   before { customers.insert(0, create(:customer, :with_avatar)) }
   let(:customer_id) { customers.first.id }
+  before {
+    user = create(:user)
+    sign_in user
+  }
 
   # Test suite for GET /customers
   describe 'GET /customers' do
@@ -50,7 +54,7 @@ RSpec.describe 'Customers API', type: :request do
 
   # Test suite for POST /customers
   describe 'POST /customers' do
-    let(:valid_attributes) { { name: 'Tsukki', surname: 'The dog', created_by: '1', updated_by: '1' }}
+    let(:valid_attributes) { { name: 'Tsukki', surname: 'The dog' }}
 
     context 'when the request is valid' do
       before { post '/customers', params: valid_attributes }
@@ -66,14 +70,14 @@ RSpec.describe 'Customers API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/customers', params: { name: 'Ponsan', surname: 'The dog' } }
+      before { post '/customers', params: { name: '', surname: 'The dog' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
 
       it 'returns a validation failure message' do
-        expect(response.body).to match(/Validation failed: Created by can't be blank, Updated by can't be blank/)
+        expect(response.body).to match(/Validation failed: Name can't be blank/)
       end
     end
   end
@@ -86,11 +90,11 @@ RSpec.describe 'Customers API', type: :request do
       before { put "/customers/#{customer_id}", params: valid_attributes }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(response.body).to match(/Customer updated/)
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -99,8 +103,8 @@ RSpec.describe 'Customers API', type: :request do
   describe 'DELETE /customers/:id' do
     before { delete "/customers/#{customer_id}" }
 
-    it 'returns status code 204' do
-      expect(response).to have_http_status(204)
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
     end
   end
 end

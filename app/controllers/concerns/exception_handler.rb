@@ -1,4 +1,6 @@
 module ExceptionHandler
+  # TODO Catch devise error messages and process them here
+
   extend ActiveSupport::Concern
 
   included do
@@ -7,6 +9,10 @@ module ExceptionHandler
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
+      json_response({ message: e.message }, :unprocessable_entity)
+    end
+
+    rescue_from ActiveRecord::RecordNotDestroyed do |e|
       json_response({ message: e.message }, :unprocessable_entity)
     end
   end
