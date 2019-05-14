@@ -1,8 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
-  # TODO include error handling from devise into ErrorHandler module
-
   # POST /signup
   def create
     build_resource(sign_up_params)

@@ -1,4 +1,6 @@
 module ExceptionHandler
+  # TODO Catch devise error messages and process them here
+
   extend ActiveSupport::Concern
 
   included do
