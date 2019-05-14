@@ -13,6 +13,10 @@ To install and run in local:
 5. Run `rails db:seed` to generate the default admin user
 6. Start the server and you're good to go!
 
+An initial admin user is generated when we run `db:seed` to be able to use the system:
+email: admin@test.com
+password: password
+
 All of the documentation regarding the resources available will be inside the [wiki](https://github.com/MYF95/crm-api-agilemonkeys/wiki) of the project.
 
 Running tests: \
