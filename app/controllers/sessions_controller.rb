@@ -1,12 +1,16 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
 
+  def new
+    head :no_content
+  end
+
   # TODO include error handling from devise into ErrorHandler module
   def create
     user = User.find_by(email: login_params[:email])
     if user.present? && user.valid_password?(login_params[:password])
       sign_in user
-      session = { user: user, token: current_token}
+      session = { token: current_token }
       json_response(session)
     else
       errors = { errors: 'Invalid email or password'}

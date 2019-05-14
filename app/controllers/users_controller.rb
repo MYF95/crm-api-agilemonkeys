@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     json_response(@user)
   end
 
+  def create
+    @user = User.create!(user_params)
+    json_response(@user)
+  end
+
   def update
     @user.update(user_params)
     head :no_content

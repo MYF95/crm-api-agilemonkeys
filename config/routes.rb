@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
+  # For a deeper usage regarding user operations with devise, modify devise routes configuration
   devise_for :users,
+             skip: [:passwords, :registrations],
              path: '',
              path_names: {
                  sign_in: 'login',
                  sign_out: 'logout',
-                 registration: 'signup'
              },
              controllers: {
                  sessions: 'sessions',
-                 registrations: 'registrations'
              }
+  as :user do
+    post '/signup' => 'registrations#create'
+  end
+
   resources :users
   resources :customers
 end
