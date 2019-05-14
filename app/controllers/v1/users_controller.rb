@@ -22,20 +22,20 @@ module V1
 
     # PUT/PATCH /user/:id
     def update
-      @user.update(user_params)
-      head :no_content
+      @user.update!(user_params)
+      json_response('User updated', 200)
     end
 
     # DELETE /user/:id
     def destroy
-      @user.destroy
-      head :no_content
+      @user.destroy!
+      json_response( 'User deleted from the database', 200)
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :admin)
     end
 
     def set_user

@@ -14,8 +14,7 @@ class SessionsController < Devise::SessionsController
       session = { token: current_token }
       json_response(session)
     else
-      error = 'Invalid email or password'
-      json_response(error, 422)
+      json_response('Invalid email or password', 422)
     end
   end
 

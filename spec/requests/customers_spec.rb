@@ -31,7 +31,7 @@ RSpec.describe 'Customers API', type: :request do
     context 'when the record exists' do
       it 'returns the customer' do
         expect(json).not_to be_empty
-        expect(json['record']['id']).to eq(customer_id)
+        expect(json['customer']['id']).to eq(customer_id)
       end
 
       it 'returns status code 200' do
