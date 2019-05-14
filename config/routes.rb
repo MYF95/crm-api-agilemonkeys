@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     post '/signup' => 'registrations#create'
   end
 
-  resources :users
-  resources :customers
+  scope module: :v2, constraints: ApiVersion.new('v2') do
+    resources :customers, only: :index
+  end
+
+  scope module: :v1, constraints: ApiVersion.new('v1', true) do
+    resources :users
+    resources :customers
+  end
 end
