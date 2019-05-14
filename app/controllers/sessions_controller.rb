@@ -1,11 +1,14 @@
 class SessionsController < Devise::SessionsController
   respond_to :json
 
+  # GET /login
   def new
     head :no_content
   end
 
   # TODO include error handling from devise into ErrorHandler module
+
+  # POST /login
   def create
     user = User.find_by(email: login_params[:email])
     if user.present? && user.valid_password?(login_params[:password])
