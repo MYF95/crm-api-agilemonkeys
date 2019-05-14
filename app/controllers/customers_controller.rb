@@ -10,6 +10,7 @@ class CustomersController < ApplicationController
   # POST /customers
   def create
     @customer = Customer.create!(customer_params)
+    @customer.update_attribute(:created_by, current_user.id)
     attach_avatar
     json_response(@customer, :created)
   end
@@ -22,21 +23,21 @@ class CustomersController < ApplicationController
 
   # PUT /customers/:id
   def update
-    @customer.update(customer_params)
+    @customer.update!(customer_params)
     attach_avatar if params[:avatar].present?
-    head :no_content
+    json_response('Customer updated', 200)
   end
 
   # DELETE /customers/:id
   def destroy
-    @customer.destroy
-    head :no_content
+    @customer.destroy!
+    json_response( 'Customer deleted from the database', 200)
   end
 
   private
 
   def customer_params
-    params.permit(:name, :surname, :created_by, :updated_by, :avatar)
+    params.permit(:name, :surname, :avatar).merge(updated_by: current_user.id)
   end
 
   def set_customer
